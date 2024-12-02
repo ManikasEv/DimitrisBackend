@@ -4,14 +4,7 @@ import cors from 'cors';
 import Admin from "./models/admin.model.js";
 import bcrypt from 'bcrypt'; // Import bcrypt
 
-const express = require("express");
 const app = express();
-
-app.get("/", (req, res) => res.send("Express on Vercel"));
-
-app.listen(3000, () => console.log("Server ready on port 3000."));
-
-module.exports = app;
 app.use(cors()); // Enable CORS for all routes
 app.use(express.json());
 
