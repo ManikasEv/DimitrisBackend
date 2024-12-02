@@ -6,11 +6,17 @@ import Admin from "./models/admin.model.js";
 import bcrypt from 'bcrypt'; // Import bcrypt
 
 const app = express();
+
+// Enable CORS for all routes with explicit configurations
 app.use(cors({
     origin: '*', // Allow all origins
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
-    allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
-})); // Enable CORS for all routes
+    allowedHeaders: ['Content-Type', 'Authorization', 'Accept'], // Allowed headers
+}));
+
+// Handle preflight OPTIONS request
+app.options('*', cors());  // Allow OPTIONS for all routes
+
 app.use(bodyParser.json()); // Parse JSON request bodies
 app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded request bodies
 
