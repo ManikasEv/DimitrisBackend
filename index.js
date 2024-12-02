@@ -1,19 +1,18 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
-import bodyParser from 'body-parser'; // Import bodyParser
 import Admin from "./models/admin.model.js";
 import bcrypt from 'bcrypt'; // Import bcrypt
 
 const app = express();
 app.use(cors()); // Enable CORS for all routes
-app.use(bodyParser.json()); // Parse JSON request bodies
-app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded request bodies
+app.use(express.json());
 
 // Your existing routes
 app.get('/', (req, res) => {
     res.send('Hello from Node API');
 });
+
 
 // POST route to handle admin registration
 app.post('/api/Admin', async (req, res) => {
@@ -46,7 +45,6 @@ app.post('/api/Admin', async (req, res) => {
         res.status(500).json({ message: "Error creating Admin", error: error.message });
     }
 });
-
 // Connect to MongoDB
 mongoose.set('debug', true);
 mongoose.connect("mongodb+srv://hextechch:mvie3YlaXa59egzs@dimitris.tufc7.mongodb.net/main_db?retryWrites=true&w=majority&appName=Dimitris")
@@ -56,9 +54,6 @@ mongoose.connect("mongodb+srv://hextechch:mvie3YlaXa59egzs@dimitris.tufc7.mongod
     .catch((error) => {
         console.error("Error connecting to DB:", error);
     });
-
-// Export the Express app for Vercel
-export default app;
 
 // The Vercel function handler
 export const handler = (req, res) => {
